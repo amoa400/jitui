@@ -1,0 +1,25 @@
+/* global */
+html,body,h1,h2,h3,h4,h5,h6,p,form,ul,ol,li,dt,dl,dd,th,td,label,bottom,input,textarea {margin:0;padding:0;}
+body {font-size:14px;font-family:"Microsoft Yahei","微软雅黑","华文细黑","宋体",Arial;color:#4f4f4f;}
+ul {margin:0;padding:0;list-style:none;}
+li {float:left;list-style:none;list-style-type:none;}
+a{color:inherit;text-decoration:none;}
+a:hover{color:#00b7ee;text-decoration:none;}
+
+.main_container{margin:0 auto;width:980px;}
+.corner2 {-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;}
+.corner3 {-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
+.corner5 {-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+.transparent60 {filter:alpha(opacity=60);-moz-opacity:0.6;-khtml-opacity:0.6;opacity:0.6;}
+.transparent80 {filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity:0.8;opacity:0.8;}
+.shadow5w {-moz-box-shadow:0 0 5px #d1d1d1;-webkit-box-shadow:0 0 5px #d1d1d1;box-shadow:0 0 5px #d1d1d1;}
+.shadow5b {-moz-box-shadow:0 0 5px #2f4d52;-webkit-box-shadow:0 0 5px #2f4d52;box-shadow:0 0 5px #2f4d52;}
+
+/* header */
+.header {background:#ffffff;height:85px;line-height:85px;}
+.header .logo {float:left;}
+.header .navi {float:left;margin-left:30px;}
+.header .navi .item {margin-left:30px;padding-left:25px;font-size:16px;line-height:95px;cursor:pointer;}
+.header .navi .item:hover, .header .navi .active {color:#00b7ee;background:url('../image/icon/cloud.png') 0px 6px no-repeat;}
+.header .user {float:right;}
+.header .user .item {margin-left:20px;}
