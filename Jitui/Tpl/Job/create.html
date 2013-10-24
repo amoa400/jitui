@@ -1,0 +1,91 @@
+<include file="Index:header"/>
+
+<link href="/css/user.css" rel="stylesheet" type="text/css">
+
+<div class="form_div corner5 shadow3w">
+	<div class="head">
+		<i class="fa fa-user"></i> 发布内推
+	</div>
+	<div class="content">
+	<form name="register" action="/job/createDo" method="post" class="myform">
+		<div class="item">
+			<div class="tt">职位名称</div>
+			<div class="ct"><input name="name" type="text" class="form-control"></div>
+			<div class="tip"></div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt tt1">职位类别</div>
+			<div class="ct">
+				<select name="job_type_id" class="form-control">
+					<option value="0">请选择职位类别</option>
+					<?php foreach($typeList as $item) { ?>
+						<option value="<{$item.id}>"><{$item.name}></option>
+					<?php } ?>
+				</select>
+			</div>
+			<div class="tip"></div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt tt1">工作地点</div>
+			<div class="ct">
+				<select name="province_id" class="form-control" style="display:inline-block;width:150px;">
+					<option value="0">选择省份</option>
+					<?php foreach($provinceList as $item) { ?>
+						<option value="<{$item.id}>"><{$item.name}></option>
+					<?php } ?>
+				</select>
+				<select name="city_id" class="form-control" style="display:inline-block;width:150px;">
+					<option value="0">选择城市</option>
+				</select>
+			</div>
+			<div class="tip"></div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt tt0">工作性质</div>
+			<div class="ct">
+				<label><input name="nature_id" value="1" type="radio"> 全职</label>　
+				<label><input name="nature_id" value="2" type="radio"> 兼职</label>　
+				<label><input name="nature_id" value="3" type="radio"> 实习</label>　
+			</div>
+			<div class="tip"></div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">职位描述</div>
+			<div class="ct"><textarea name="des" class="form-control"></textarea></div>
+			<div class="tip"></div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">　　　　</div>
+			<div class="ct"><input type="submit" value="发布" class="form-control btn btn-primary"></div>
+			<div class="clear"></div>
+		</div>
+		<span class="submitTip hidden">发布</span>
+		<span class="submittingTip hidden">正在发布</span>
+		<span class="successTip hidden">发布成功</span>
+		<span class="failTip hidden">发布失败</span>
+	</form>
+	</div>
+</div>
+
+<script>
+var cityTot = 0;
+var cityList = new Array();
+<?php foreach($cityList as $item) { ?>
+cityList[cityTot] = new Object();cityList[cityTot].city_id = <{$item.city_id}>;cityList[cityTot].name = '<{$item.name}>';cityList[cityTot++].province_id = <{$item.province_id}>;
+<?php } ?>
+
+$('select[name="province_id"]').change(function() {
+	$('select[name="city_id"]').html('<option value="0">选择城市</option>');
+	for (var i = 0; i < cityTot; i++)
+	if (cityList[i].province_id == $(this).val())
+		$('select[name="city_id"]').append('<option value="' + cityList[i].city_id + '">' + cityList[i].name + '</option>');
+});
+
+</script>
+
+<include file="Index:footer"/>

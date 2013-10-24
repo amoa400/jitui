@@ -12,19 +12,6 @@ class UserModel extends Model {
 		'password' 				=> 		'密码',
 	);
 	
-	// 文本框字段
-	//public $textareaField = array('remark', 'evaluation');
-	
-	// 选择字段
-	//public $selectField = array(
-		//'status_id' 			=>		array(
-		//	'1'		=>		'未开始',
-		//	'2'		=>		'已开始',
-		//	'3'		=>		'已结束',
-		//	'4'		=>		'已评价',
-		//),
-	//);
-	
 	// 数据正确规则
 	public $dataRule = array(
 		array('email', 'empty'),

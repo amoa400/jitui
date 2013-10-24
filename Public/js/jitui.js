@@ -1,4 +1,4 @@
-// 表单类
+/* 表单类 */
 function JT_Form() {
 	var init = function() {
 		$('.myform').each(function() {
@@ -50,11 +50,15 @@ function JT_Form() {
 		var inputs = $(thisObj).find('input');
 		for (var i = 0; i < inputs.length; i++) {
 			if (inputs[i].name == '' || inputs[i].type == 'file') continue;
+			if (inputs[i].type == 'radio' && !inputs[i].checked) continue;
+			if (inputs[i].type == 'checkbox' && !inputs[i].checked) continue;
 			data[inputs[i].name] = inputs[i].value;
 			var inputObj = document.createElement('input');
 			inputObj.setAttribute('type', inputs[i].type);
 			inputObj.setAttribute('name', inputs[i].name);
 			inputObj.setAttribute('value', inputs[i].value);
+			if (inputs[i].checked)
+				inputObj.setAttribute('checked', 'true');
 			formObj.appendChild(inputObj);
 		}
 		// 获取textarea的值
@@ -106,7 +110,11 @@ function JT_Form() {
 				submitBtn.addClass('btn-danger');
 				// 显示失败信息
 				for(var name in res.error) {
-					var tipObj = $(thisObj).find("[name='" + name + "']").parent().nextAll('.tip');
+					var tipObj = $(thisObj).find("[name='" + name + "']").parent();
+					while (tipObj != null && (tipObj.attr('class') == null || tipObj.attr('class').indexOf('ct') == -1)) {
+						tipObj = tipObj.parent();
+					}
+					tipObj = tipObj.nextAll('.tip');
 					tipObj.addClass('tip_error');
 					tipObj.removeClass('tip_success');
 					tipObj.html('<span class="fa fa-times"></span> ' + res.error[name]);

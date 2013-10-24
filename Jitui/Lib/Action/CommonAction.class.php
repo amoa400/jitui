@@ -14,7 +14,7 @@ class CommonAction extends Action {
 		} else {
 			$ret['status'] = 'success';
 			if (empty($para['jumpUrl']))
-				$ret['jumpUrl'] = '/'. $data['action'] . '/' . $data['action'] . '_id/' . $res;
+				$ret['jumpUrl'] = '/'. $para['action'] . '/show/id/' . $res;
 			else
 				$ret['jumpUrl'] = $para['jumpUrl'];
 			$ret['id'] = $res;

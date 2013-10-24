@@ -157,6 +157,12 @@ class CommonModel extends Model {
 		$ret = $this->field('`'. $this->action . '_id` AS `id`, `name`')->order('`'. $this->action . '_id` ' . $order)->select();
 		return $ret;
 	}
+	
+	// 获取所有项
+	public function getAll($order = 'DESC') {
+		$ret = $this->order('`'. $this->action . '_id` ' . $order)->select();
+		return $ret;
+	}
 
 	// 验证数据是否合法
 	public function isCorrect($data) {
@@ -174,7 +180,7 @@ class CommonModel extends Model {
 			// 长度
 			else
 			if ($item[1] == 'length') {
-				$len = strlen($data[$key]);
+				$len = mb_strlen($data[$key], 'utf-8');
 				if ($len < $item[2][0] || $len > $item[2][1])
 					$this->errorInfo[$key] = $keyName . '长度应为' . $item[2][0] . '-' . $item[2][1] . '位';
 			}
@@ -198,6 +204,12 @@ class CommonModel extends Model {
 				if (!preg_match($item[2], $data[$key]))
 					$this->errorInfo[$key] = $keyName . '格式不正确';
 			}
+			else
+			// 整数
+			if ($item[1] == 'int') {
+				if (!preg_match('/^[0-9]+$/u', $data[$key]))
+					$this->errorInfo[$key] = $keyName . '格式不正确';
+			}
 			// 空
 			else {
 			}
@@ -216,9 +228,9 @@ class CommonModel extends Model {
 			}
 			// 获取字段
 			else
-			if ($item[2] == 'getField' && !empty($data[$item[1][2]])) {
-				$dataClass = D('Base/Common', array($item[1][0], $item[1][1]));
-				$data[$key] = $dataClass->getField($item[1][2], $data[$item[1][2]], $item[1][3]);
+			if ($item[2] == 'getField' && !empty($data[$item[1][1]])) {
+				$dataClass = D('Common', $item[1][0]);
+				$data[$key] = $dataClass->getField($item[1][1], $data[$item[1][1]], $item[1][2]);
 			}
 			// 获取当前时间
 			else

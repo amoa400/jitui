@@ -23,11 +23,11 @@
 <div class="main_container">
 	<div class="logo"><a href="/"><img src="/image/logo.png"></a></div>
 	<div class="navi">
-		<a class="item active">首页</a>
-		<a class="item">平台推</a>
-		<a class="item">内推</a>
-		<a class="item">搜职位</a>
-		<a class="item">公司列表</a>
+		<a href="/" class="item <?php if ($pageTitle == '') echo 'active'; ?>">首页</a>
+		<a class="item <?php if ($pageTitle == '平台推') echo 'active'; ?>">平台推</a>
+		<a class="item <?php if ($pageTitle == '内推') echo 'active'; ?>">内推</a>
+		<a class="item <?php if ($pageTitle == '搜职位') echo 'active'; ?>">搜职位</a>
+		<a class="item <?php if ($pageTitle == '公司列表') echo 'active'; ?>">公司列表</a>
 	</div>
 	<div class="user">
 		<?php if (empty($_SESSION['login'])) { ?>
@@ -41,6 +41,7 @@
 					<span><i class="fa fa-sort-down"></i></span>
 				</div>
 				<a class="it hidden">帐号设置</a>
+				<a href="/job/create" class="it hidden">发布内推</a>
 				<a href="/user/logout" class="it hidden">退出</a>
 			</div>
 			<div class="menu">
