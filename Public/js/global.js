@@ -1,4 +1,3 @@
-
 // 获取object里的元素个数
 function object_count(o){
 	var t = typeof o;
@@ -36,3 +35,20 @@ function dump(obj) {
 	div.html(s);
 	div.appendTo('body');
 }
+
+function isEmail(s) {
+	var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+	if (!reg.test(s)) return false;
+	else return true;
+}
+
+// 用户栏
+$().ready(function() {
+	$('.header .user .info').mouseover(function() {
+		$('.header .user .info .it').removeClass('hidden');
+	});
+	$('.header .user .info').mouseout(function() {
+		$('.header .user .info .it').addClass('hidden');
+		$('.header .user .info .it:first-child').removeClass('hidden');
+	});
+});

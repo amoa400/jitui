@@ -1,0 +1,41 @@
+<include file="Index:header"/>
+
+<link href="/css/user.css" rel="stylesheet" type="text/css">
+
+<div class="register">
+	<div class="head">
+		<i class="fa fa-user"></i> 登录帐号
+	</div>
+	<div class="content">
+		<div class="left">
+		<form name="login" action="/user/loginDo" method="post" class="myform">
+			<div class="item">
+				<span class="tt">邮箱地址</span>
+				<span class="ct"><input name="email" type="text" class="form-control"></span>
+			</div>
+			<div class="item">
+				<span class="tt">密　　码</span>
+				<span class="ct"><input name="password" type="password" class="form-control"></span>
+			</div>
+			<div class="item">
+				<span class="tt"></span>
+				<span class="ct"><input type="submit" value="登录" class="form-control btn btn-primary"></span>
+			</div>
+			<span class="submitTip hidden">登录</span>
+			<span class="submittingTip hidden">正在登录</span>
+			<span class="successTip hidden">登录成功</span>
+			<span class="failTip hidden">登录失败</span>
+		</form>
+		</div>
+		<div class="right">
+			<div class="item">尚未注册？</div>
+			<div class="item"><a href="/user/register" class="form-control btn btn-success">立即注册</a></div>
+			<div class="item"><a href="/user/login"><img src="/image/icon/weibo.png"> 微博登录</a></div>
+			<div class="item"><a href="/user/login"><img src="/image/icon/renren.png"> 人人登录</a></div>
+			<div class="item"><a href="/user/login"><img src="/image/icon/qq.png"> 企鹅登录</a></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<include file="Index:footer"/>

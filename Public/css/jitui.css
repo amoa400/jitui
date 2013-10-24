@@ -1,0 +1,4 @@
+.myform {}
+.myform .tip {font-size:14px;}
+.myform .tip_error {color:#d9534f;}
+.myform .tip_success {color:#5cb85c;}

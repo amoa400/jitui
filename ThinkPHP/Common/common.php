@@ -381,14 +381,13 @@ function alias_import($alias, $classfile='') {
  */
 function D($name='',$layer='') {
 	// ============================================================
-	if (gettype($layer) == 'array') {
-		$group = $layer[0];
-		$action = $layer[1];
+	if ($name == 'Common') {
+		$action = $layer;
 		$layer = '';
 	}
 	$realName = $name;
-	if (!empty($group) || !empty($action)) {
-		$realName = '_' . $group . '_' . $action;
+	if (!empty($action)) {
+		$realName = '_' . $action;
 	}
 	// ============================================================
 
@@ -419,7 +418,7 @@ function D($name='',$layer='') {
 	
     if(class_exists($class)) {
 		// ============================================================
-        $model      =   new $class(basename($name), '', '', $group, $action);
+        $model      =   new $class(basename($name), '', '', $action);
 		// ============================================================
     }else {
         $model      =   new Model(basename($name));

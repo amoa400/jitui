@@ -70,10 +70,10 @@ class Model {
      * @param string $tablePrefix 表前缀
      * @param mixed $connection 数据库连接信息
      */
-    public function __construct($name='',$tablePrefix='',$connection='', $group = '', $action = '') {
+    public function __construct($name='',$tablePrefix='',$connection='', $action = '') {
         // 模型初始化
-		if (!empty($group) || !empty($action))
-			$this->_initialize($group, $action);
+		if (!empty($action))
+			$this->_initialize($action);
 		// ============================================================
         else
 			$this->_initialize();

@@ -1,0 +1,14 @@
+.register {}
+.register .head {background:#f8f8f8;height:70px;line-height:70px;padding-left:20px;font-size:20px;border-bottom:1px dotted #d0d0d0;}
+.register .content {background:#ffffff;padding:40px;}
+.register .content .left {float:left;width:600px;height:230px;}
+.register .content .left .item {margin-top:30px;font-size:16px;}
+.register .content .left .item:first-child {margin-top:0px;}
+.register .content .left .item .tt {display:inline-block;width:80px;}
+.register .content .left .item .ct {display:inline-block;width:280px;}
+.register .content .left .item .tip {display:inline-block;width:220px;margin-left:10px;}
+.register .content .left .item input[type="text"] {font-size:16px;padding:15px 10px 15px 10px;}
+.register .content .right {float:right;border-left:1px solid #eceef1;height:230px;width:300px;padding-left:40px;text-align:center;}
+.register .content .right .item {margin-top:20px;font-size:16px;}
+.register .content .right .item:first-child {margin-top:0px;}
+.register .content .right img {width:16px;padding-bottom:2px;}
