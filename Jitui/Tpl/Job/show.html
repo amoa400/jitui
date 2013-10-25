@@ -1,0 +1,45 @@
+<include file="Index:header"/>
+
+<link href="/css/job.css" rel="stylesheet" type="text/css">
+
+<div class="show_left corner5 shadow3w">
+	<div class="head">
+		<div class="info">
+			<div class="title"><{$job.name}></div>
+			<div class="content">
+				<span><{$job.job_type_name}></span>
+				<span><{$job.province_name}>-<{$job.city_name}></span>
+				<span><{$job.nature_name}></span>
+			</div>
+		</div>
+		<div class="user">
+			<div class="text">
+				<span><strong><{$user.name}></strong> 于 <{$job.sub_time}> 发布</span>
+				<span><{$company.name}></span>
+			</div>
+			<div class="photo">
+				<img src="/image/photo/1.png" class="corner3">
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="content">
+		<{$job.des}>
+	</div>
+	<div class="foot">
+		<span class="btn btn-primary">投递简历</span>
+		<span class="btn btn-success">推荐他人</span>
+	</div>
+</div>
+
+<div class="show_right corner5 shadow3w">
+	<div class="phone">
+		手机找内推，关注即推微信<br><br>
+		<img src="/image/weixin.png" style="width:210px;">
+	</div>
+</div>
+
+<div class="clear"></div>
+
+<include file="Index:footer"/>

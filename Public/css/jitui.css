@@ -6,7 +6,7 @@
 /* ±íµ¥DIV */
 .form_div {overflow:hidden;}
 .form_div .head {background:#428bca;background:#f8f8f8;height:60px;line-height:60px;padding-left:20px;font-size:20px;border-bottom:1px dotted #d0d0d0;color:#428bca;}
-.form_div .content {background:#ffffff;padding:40px;}
+.form_div .content {background:#ffffff;padding:30px;}
 .form_div .content .item  {margin-top:20px;font-size:16px;}
 .form_div .content .item:first-child {margin-top:0;}
 .form_div .content .item .tt {float:left;margin-top:5px;}

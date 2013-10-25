@@ -50,4 +50,9 @@ class UserAction extends Action {
 		$_SESSION = array();
 		$this->redirect('/');
 	}
+	
+	// 格式化
+	public function format($user) {
+		return $user;
+	}
 }

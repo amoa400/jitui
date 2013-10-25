@@ -24,7 +24,31 @@ class JobAction extends Action {
 	// 显示
 	public function show() {
 		$job = D('Common', 'job')->r($_GET['id']);
-		dump($job);
+		$job = $this->format($job);
+		$user = D('Common', 'user')->r($job['user_id']);
+		$user = A('User')->format($user);
+		$company = D('Common', 'company')->r($user['company_id']);
+		$company = A('Company')->format($company);
+		$this->assign('pageTitle', $job['name']);
+		$this->assign('job', $job);
+		$this->assign('user', $user);
+		$this->assign('company', $company);
+		$this->display();
 	}
 
+	// 格式化
+	public function format($job) {
+		// 工作性质
+		switch ($job['nature_id']) {
+			case 1:
+				$job['nature_name'] = '全职';
+			case 2:
+				$job['nature_name'] = '兼职';
+			case 3:
+				$job['nature_name'] = '实习';
+		}
+		$job['des'] = nl2br($job['des']);
+		$job['sub_time'] = intToTime($job['sub_time_int'], 'm-d');
+		return $job;
+	}
 }

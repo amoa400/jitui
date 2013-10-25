@@ -1,0 +1,21 @@
+.show_left {float:left;width:700px;background:#ffffff;padding:30px;}
+.show_left .head {border-bottom:1px solid #cfcfcf;padding-bottom:10px;}
+.show_left .head .info {float:left;}
+.show_left .head .info .title {font-size:20px;font-weight:bold;color:#428bca;}
+.show_left .head .info .content {margin-top:5px;font-size:16px;}
+.show_left .head .info .content span {display:inline-block;margin-left:10px;}
+.show_left .head .info .content span:first-child {margin:0;}
+.show_left .head .user {float:right;}
+.show_left .head .user .text {float:left;margin-right:10px;}
+.show_left .head .user .text span {display:block;text-align:right;vertical-align:bottom;}
+.show_left .head .user .text span:first-child {font-size:14px;margin-top:11px;}
+.show_left .head .user .text span:last-child {font-size:14px;margin-top:3px;}
+.show_left .head .user .photo {float:left;}
+.show_left .head .user img {width:55px;}
+.show_left .content {margin-top:20px;font-size:16px;line-height:26px;}
+.show_left .foot {border-top:1px solid #cfcfcf;margin-top:20px;padding-top:20px;}
+.show_left .foot span {display:inline-block;margin-left:10px;}
+.show_left .foot span:first-child {margin-left:0;}
+
+.show_right {float:left;background:#ffffff;margin-left:30px;width:250px;padding:20px;}
+.show_right .phone {text-align:center;}
