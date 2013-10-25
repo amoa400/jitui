@@ -47,6 +47,13 @@ class CompanyAction extends Action {
 		$this->assign('company', $company);
 		$this->display();
 	}
+	
+	// 获取编号名称对应表
+	public function getIdNameList() {
+		$const['action'] = 'company';
+		$const['order'] = 'DESC';
+		A('Common')->getIdNameList($const);
+	}
 
 	// 格式化
 	public function format($company) {

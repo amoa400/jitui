@@ -1,3 +1,44 @@
+/*
+	基本类
+*/
+function JT_Common() {
+	// 变量
+	var _this = this;
+	
+	// 初始化函数
+	var init = function() {
+		$('body').click(blurClick);
+	}
+	
+	// 失焦点击
+	var blurClick = function(e) {
+		if ($('.jt_popbox').length != 0) {
+			var inBox = false;
+			if (e.clientX > $('.jt_popbox').offset().left && e.clientX < $('.jt_popbox').offset().left + parseInt($('.jt_popbox').css('width')) && e.clientY > $('.jt_popbox').offset().top && e.clientY < $('.jt_popbox').offset().top + parseInt($('.jt_popbox').css('height')))
+				inBox = true;
+			if (!inBox) {
+				$('.jt_popbox').remove();
+			}
+		}
+		if ($('.jt_popbox_h').length != 0) {
+			var inBox = false;
+			if (e.clientX > $('.jt_popbox_h').offset().left && e.clientX < $('.jt_popbox_h').offset().left + parseInt($('.jt_popbox_h').css('width')) && e.clientY > $('.jt_popbox_h').offset().top && e.clientY < $('.jt_popbox_h').offset().top + parseInt($('.jt_popbox_h').css('height')))
+				inBox = true;
+			if (!inBox) {
+				$('.jt_popbox_h').hide();
+			}
+		}
+	}
+	
+	// 关闭
+	_this.closePopbox = function() {
+		$('.jt_popbox').remove();
+		$('.jt_popbox_h').hide();
+	}
+	
+	init();
+}
+
 /* 表单类 */
 function JT_Form() {
 	var _this = this;
@@ -179,6 +220,157 @@ function JT_Form() {
 	_this.changeFileText = function(formName, fileBtnName, value) {
 		$('.myform[name="' + formName + '"] input[name="' + fileBtnName + '"]').val(value.match(/[^\/\\]*$/)[0]);
 	}
+	
+	init();
+}
+
+
+/*
+	选择名称类
+*/
+function JT_NamePicker() {
+	var _this = this;
+	var data = new Object;
+	
+	// 初始化函数
+	function init() {
+		createIcon();
+	}
+	
+	// 触发器点击
+	$('.jt_name_picker_t').bind('click focus', function(e) {
+		var thisObj = $(this);
+		e.cancelBubble = true;
+		e.stopPropagation();
+		jtCommon.closePopbox();
+		
+		// 查看数据是否存在
+		var url = $(this).attr('md_url');
+		if (data[url] == null) {
+			$.get(url, {},
+				function(ret) {
+					data[url] = ret;
+					thisObj.click();
+				}
+			);
+			return;
+		}
+		
+		// 复制数据
+		var dataCnt = new Object();
+		dataCnt.length = data[url].length;
+		for (var i = 0; i < data[url].length; i++) {
+			dataCnt[i] = data[url][i];
+			dataCnt[i].flag = false;
+		}
+		
+		// 将结果排序
+		var text = $(this).val();
+		if (text.length != 0) {
+			var index = 0;
+			// 1、将前缀相同的排到前面
+			for (var i = 0; i < dataCnt.length; i++) {
+				if (index > 10) break;
+				if (dataCnt[i].name.substr(0, text.length) == text) {
+					dataCnt[i].flag = true;
+					var t = dataCnt[index];
+					dataCnt[index] = dataCnt[i];
+					dataCnt[i] = t;
+					index++;
+				}
+			}
+			// 2、将名称中含有关键词的放到前面
+			for (var i = index; i < dataCnt.length; i++) {
+				if (index > 10) break;
+				if (dataCnt[i].name.indexOf(text) != -1) {
+					dataCnt[i].flag = true;
+					var t = dataCnt[index];
+					dataCnt[index] = dataCnt[i];
+					dataCnt[i] = t;
+					index++;
+				}
+			}
+		}
+
+		// 创建div
+		var div = $('<div></div>');
+		div.addClass('jt_name_picker');
+		div.addClass('jt_popbox');
+		div.append('<table></table>');
+		for (var i = 0; i < dataCnt.length; i++) {
+			if (i > 10) break;
+			if (text != '' && dataCnt[i].flag != true) break;
+			if (dataCnt[i].id != $('[name="' + $(this).attr('md_name') + '"]').val()) 
+				div.find('table').append('<tr><td>' + dataCnt[i].id + '</td><td>--</td><td>' + dataCnt[i].name + '</td><td><span class="glyphicon glyphicon-ok"></span></td></tr>');
+			else
+				div.find('table').append('<tr class="active"><td>' + dataCnt[i].id + '</td><td>--</td><td>' + dataCnt[i].name + '</td><td><span class="glyphicon glyphicon-ok"></span></td></tr>');
+		}
+		if (text != '' && (dataCnt[0] == null || dataCnt[0].flag != true)) {
+			div.find('table').append('<tr md_disabled="disabled"><td style="text-align:center;"><span class="glyphicon glyphicon-remove"></span>&nbsp;未找到相应结果</td></tr>');
+		}
+		div.appendTo('body');
+		
+		// 调整宽度
+		$('.jt_name_picker').css('min-width', $(this).css('width'));
+		while (parseInt($('.jt_name_picker td').css('height')) > 40) {
+			$('.jt_name_picker').css('width', parseInt($('.jt_name_picker').css('width')) + 20);
+		}
+		$('.jt_name_picker').css('left', $(this).offset().left);
+		$('.jt_name_picker').css('top', $(this).offset().top + 41);
+		
+		// 点击条目
+		$('.jt_name_picker tr').click(function() {
+			if ($(this).attr('md_disabled') == 'disabled') return;
+			$('[name="' + thisObj.attr('md_name') + '"]').val($(this).find('td:first-child').html());
+			thisObj.val($(this).find('td:nth-child(3)').html());
+			jtCommon.closePopbox();
+		});
+
+	});
+	
+	// 文本框变化
+	$('.jt_name_picker_t').bind('input propertychange', function() {
+		$(this).click();
+	});
+
+	// 文本框变化（失焦）
+	$('.jt_name_picker_t').change(function() {
+		var id = $('[name="' + $(this).attr('md_name') + '"]').val();
+		if (id != '') {
+			for (var i = 0; i < data[$(this).attr('md_url')].length; i++)
+			if (data[$(this).attr('md_url')][i].id == id) {
+				$(this).val(data[$(this).attr('md_url')][i].name);
+				break;
+			}
+		}
+	});	
+	
+	// 为每个input创建图标
+	var createIcon = function() {
+		$('.jt_name_picker_icon').remove();
+		$('.jt_name_picker_t').each(function() {
+			var thisObj = this;
+			var span = $('<span></span>');
+			span.addClass('jt_name_picker_icon');
+			span.addClass('fa');
+			span.addClass('fa-list-alt');
+			span.css('position', 'absolute');
+			span.css('color', '#9b9b9b');
+			span.css('cursor', 'pointer');
+			if ($(this).parent().css('position') == 'static') {
+				$(this).parent().css('position', 'relative');
+			}
+			span.css('left', $(this).offset().left - $(this).parent().offset().left + parseInt($(this).css('width')) - 30);
+			span.css('top', $(this).offset().top - $(this).parent().offset().top + parseInt($(this).css('height')) / 2 - 6);
+			span.click(function(e) {
+				e.cancelBubble = true;
+				e.stopPropagation();
+				thisObj.click();
+			});	
+			span.appendTo($(this).parent());
+		});
+	}
+	_this.createIcon = createIcon;
 	
 	init();
 }
@@ -413,5 +605,7 @@ function changeTab3(url) {
 	触发所有类
 */
 $().ready(function() {
+	window.jtCommon = new JT_Common();
 	window.jtForm = new JT_Form();
+	window.jtNamePicker = new JT_NamePicker();
 });

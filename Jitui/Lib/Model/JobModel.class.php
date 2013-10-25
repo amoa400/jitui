@@ -9,6 +9,7 @@ class JobModel extends Model {
 		'job_id' 				=> 		'编号',
 		'user_id' 				=> 		'用户编号',
 		'name' 					=> 		'职位名称',
+		'company_id' 			=> 		'公司名称',
 		'company_name' 			=> 		'公司名称',
 		'job_type_id' 			=> 		'职位类型',
 		'job_type_name'			=> 		'职位类型',
@@ -36,7 +37,10 @@ class JobModel extends Model {
 		array('des', 'length', array(20, 5000)),
 		array('type_id', 'empty'),
 		array('type_id', 'int'),
-
+		array('company_id', 'empty'),
+		array('company_id', 'int'),
+		array('company_name', 'empty'),
+		array('company_name', 'length', array(1, 50)),
 	);
 	
 	//数据填充规则

@@ -9,14 +9,28 @@
 .form_div .content {background:#ffffff;padding:30px;}
 .form_div .content .item  {margin-top:20px;font-size:16px;}
 .form_div .content .item:first-child {margin-top:0;}
-.form_div .content .item .tt {float:left;margin-top:5px;}
+.form_div .content .item .tt {float:left;margin-top:10px;}
 .form_div .content .item .ct {float:left;width:500px;margin-left:20px;}
-.form_div .content .item .tip {float:left;margin-left:20px;margin-top:5px;}
+.form_div .content .item .tip {float:left;margin-left:20px;margin-top:10px;}
 .form_div .content .item .tt0 {margin-top:0;}
-.form_div .content .item .tt1 {margin-top:10px;}
-.form_div .content .item input[type="input"] {height:40px;font-size:16px;}
+.form_div .content .item .tt1 {margin-top:8px;}
+.form_div .content .item input[type="text"] {height:40px;font-size:16px;}
 .form_div .content .item input[type="submit"] {height:40px;font-size:16px;}
 .form_div .content .item select {height:40px;font-size:16px;cursor:pointer;}
 .form_div .content .item textarea {height:200px;font-size:16px;}
 .form_div .content .item label {background:none;font-weight:normal;cursor:pointer;}
 .form_div .content .item .file {height:40px;}
+
+/* Ãû³ÆÑ¡ÔñÆ÷ */
+.jt_name_picker {position:absolute;border:1px solid #66afe9;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;background:#ffffff;max-height:205px;overflow-y:auto;}
+.jt_name_picker table {width:100%;}
+.jt_name_picker td {padding-left:15px;text-align:left;border-bottom:1px solid #8cb8db;height:40px;line-height:40px;}
+.jt_name_picker tr td:first-child {text-align:right;}
+.jt_name_picker tr td:nth-child(2) {text-align:center;}
+.jt_name_picker tr td:last-child {padding-right:15px;}
+.jt_name_picker tr:last-child td {border-bottom:none;}
+.jt_name_picker tr:hover {background:#e1effa;cursor:pointer;}
+.jt_name_picker tr:hover .glyphicon-ok {color:#56ac56;}
+.jt_name_picker .glyphicon {color:#a8a8a8;}
+.jt_name_picker .active {}
+.jt_name_picker .active .glyphicon-ok {color:#56ac56;}

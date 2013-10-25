@@ -25,6 +25,29 @@ class CommonAction extends Action {
 			return $ret;
 	}
 
+	
+	// 获取编号名称对应表
+	public function getIdNameList($const) {
+		$dataClass = D('Common', $const['action']);
+		if (empty($const['order'])) 
+			$res = $dataClass->getIdNameList();
+		else
+			$res = $dataClass->getIdNameList($const['order']);
+		// 是否合并
+		if (!empty($const['merge'])) {
+			$resT = $res;
+			$res = array();
+			foreach($resT as $item) {
+				$res[$item['id']] = $item['name'];
+			}
+		}
+		// 返回方式
+		if (!empty($const['noAjax']))
+			return $res;
+		else
+			$this->ajaxReturn($res);
+	}
+
 	// 通过字段获取
 	public function getByField($data = array()) {
 		if (empty($data)) $data = $_POST;

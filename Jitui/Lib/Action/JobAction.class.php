@@ -11,7 +11,22 @@ class JobAction extends Action {
 		$this->assign('typeList', $typeList);
 		$this->assign('provinceList', $provinceList);
 		$this->assign('cityList', $cityList);
+		$this->assign('typeId', 1);
 		$this->display();
+	}
+	
+	// 创建平台推
+    public function create2() {
+		$typeList = D('Common', 'job_type')->getIdNameList('ASC');
+		$provinceList = D('Common', 'province')->getIdNameList('ASC');
+		$cityList = D('Common', 'city')->getAll('ASC');
+
+		$this->assign('pageTitle', '发布平台推');
+		$this->assign('typeList', $typeList);
+		$this->assign('provinceList', $provinceList);
+		$this->assign('cityList', $cityList);
+		$this->assign('typeId', 2);
+		$this->display('create');
 	}
 	
 	// 创建处理
@@ -19,6 +34,12 @@ class JobAction extends Action {
 		$para['action'] = 'job';
 		$para['retType'] = 'ajax';
 		$_POST['user_id'] = $_SESSION['user_id'];
+		if ($_POST['type_id'] == 1) {
+			$user = D('Common', 'user')->r($_SESSION['user_id']);
+			$company = D('Common', 'company')->r($user['company_id']);
+			$_POST['company_id'] = $company['company_id'];
+			$_POST['company_name'] = $company['name'];
+		}
 		A('Common')->createDo($_POST, $para);
 	}
 	
