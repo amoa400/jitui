@@ -1,0 +1,42 @@
+<include file="Index:header"/>
+
+<div class="form_div corner5 shadow3w">
+	<div class="head">
+		<i class="fa fa-building"></i> 新建公司
+	</div>
+	<div class="content">
+	<form name="register" action="/company/createDo" method="post" class="myform" enctype="multipart/form-data">
+		<div class="item">
+			<div class="tt">公司名称</div>
+			<div class="ct"><input name="name" type="text" class="form-control"></div>
+			<div class="tip"></div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">职位描述</div>
+			<div class="ct"><textarea name="des" class="form-control"></textarea></div>
+			<div class="tip"></div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt tt1">公司头像</div>
+			<div class="ct">
+				<input name="photo" type="button" class="form-control btn btn-success file" value="上传头像" md_default_value="上传头像">
+			</div>
+			<div class="tip tt1"></div>
+			<div class="clear"></div>
+		</div>
+		<div class="item">
+			<div class="tt">　　　　</div>
+			<div class="ct"><input type="submit" value="新建" class="form-control btn btn-primary"></div>
+			<div class="clear"></div>
+		</div>
+		<span class="submitTip hidden">新建</span>
+		<span class="submittingTip hidden">正在新建</span>
+		<span class="successTip hidden">新建成功</span>
+		<span class="failTip hidden">新建失败</span>
+	</form>
+	</div>
+</div>
+
+<include file="Index:footer"/>

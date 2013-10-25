@@ -9,6 +9,7 @@ class JobModel extends Model {
 		'job_id' 				=> 		'编号',
 		'user_id' 				=> 		'用户编号',
 		'name' 					=> 		'职位名称',
+		'company_name' 			=> 		'公司名称',
 		'job_type_id' 			=> 		'职位类型',
 		'job_type_name'			=> 		'职位类型',
 		'province_id' 			=> 		'省份',
@@ -23,6 +24,8 @@ class JobModel extends Model {
 	public $dataRule = array(
 		array('name', 'empty'),
 		array('name', 'length', array(1, 50)),
+		array('company_name', 'empty'),
+		array('company_name', 'length', array(1, 50)),
 		array('job_type_id', 'empty'),
 		array('job_type_id', 'int'),
 		array('province_id', 'empty'),

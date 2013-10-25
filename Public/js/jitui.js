@@ -1,5 +1,7 @@
 /* 表单类 */
 function JT_Form() {
+	var _this = this;
+
 	var init = function() {
 		$('.myform').each(function() {
 			var name = $(this).attr('name');
@@ -8,9 +10,16 @@ function JT_Form() {
 			$(this).find('.submit').click(function() {
 				$(this).submit();
 			});
+			$(this).find('.file').click(function() {
+				var formChildren = $('.iframe_' + name)[0].contentWindow.document.getElementById("form").childNodes;
+				for (var i = 0; i < formChildren.length; i++) {
+					if (formChildren[i].getAttribute('name') != $(this).attr('name')) continue;
+					formChildren[i].click();
+					break;
+				}
+			});
 		});
 		$('.myform').submit(submit);
-
 	}
 	
 	// 提交表单
@@ -49,7 +58,7 @@ function JT_Form() {
 		// 获取input的值
 		var inputs = $(thisObj).find('input');
 		for (var i = 0; i < inputs.length; i++) {
-			if (inputs[i].name == '' || inputs[i].type == 'file') continue;
+			if (inputs[i].name == '' || (inputs[i].getAttribute('class') != null && inputs[i].getAttribute('class').indexOf('file') != -1)) continue;
 			if (inputs[i].type == 'radio' && !inputs[i].checked) continue;
 			if (inputs[i].type == 'checkbox' && !inputs[i].checked) continue;
 			data[inputs[i].name] = inputs[i].value;
@@ -110,8 +119,11 @@ function JT_Form() {
 				submitBtn.addClass('btn-danger');
 				// 显示失败信息
 				for(var name in res.error) {
+					var deep = 0;
 					var tipObj = $(thisObj).find("[name='" + name + "']").parent();
 					while (tipObj != null && (tipObj.attr('class') == null || tipObj.attr('class').indexOf('ct') == -1)) {
+						deep++;
+						if (deep > 100) break;
 						tipObj = tipObj.parent();
 					}
 					tipObj = tipObj.nextAll('.tip');
@@ -136,52 +148,36 @@ function JT_Form() {
 	// iframe生成
 	var generate = function(name) {
 		var thisObj = $('.myform[name="' + name + '"]');
-		// 清除
-		//if (name != null && $(thisObj).attr('name') != name) return;
-		//$(thisObj).find('input[type="file"]').each(function() {
-		//	$(thisObj).next().val($(thisObj).next().attr('md_default_value'));
-		//});
-			
 		$('.iframe_' + name).remove();
 		var iframe = '<iframe class="iframe_' + $(thisObj).attr('name') + ' hidden"></iframe>';
 		$('body').append(iframe);
 
 		// 页面内容
-
 		var html = '';
 		html += '<form id="form" action="' + $(thisObj).attr('action') + '" method="' + $(thisObj).attr('method') + '" enctype="' + $(thisObj).attr('enctype') + '">';
 		// 获取file的值
-		var inputs = $(thisObj).find('input');
-		for (var i = 0; i < inputs.length; i++) {
-			//if (inputs[i].name == '' || inputs[i].type != 'file') continue;
-			//html += '<input type="' + inputs[i].type + '" name="' + inputs[i].name + '" ';
-			//html += 'onchange="parent.changeUploadBtn(\'' + $(thisObj).attr('name') + '\', \'' + inputs[i].name + '\', thisObj.value)"';
-			//if (inputs[i].multiple) html += 'multiple="multiple"';
-			//html += '>';
+		var files = $(thisObj).find('.file');
+		for (var i = 0; i < files.length; i++) {
+			if (files[i].name == '') continue;
+			html += '<input type="file" name="' + files[i].name + '" ';
+			html += 'onchange="parent.jtForm.changeFileText(\'' + $(thisObj).attr('name') + '\', \'' + files[i].name + '\', this.value)"';
+			if (files[i].getAttribute('md_multiple') == '1') html += 'multiple="multiple"';
+			html += '>';
 		}
 		// 其他值在提交表单时自动添加
 		html += '</form>';
+		
+		// 设定上传文件的值
+		$(thisObj).find('.file').each(function() {
+			$(this).val($(this).attr('md_default_value'));
+		});
 
 		$('.iframe_' + name)[0].contentWindow.document.write(html);
-			
-		/*
-		// 表单点击上传文件
-		$('.myform .upload_btn').click(function() {
-			var formObj = $(this).parent();
-			while (formObj[0].tagName != 'FORM') {
-				formObj = formObj.parent();
-			}
-			var formChildren = $('#form_iframe_' + formObj.attr('name'))[0].contentWindow.document.getElementById("form").childNodes;
-			for (var i = 0; i < formChildren.length; i++) {
-				if (formChildren[i].getAttribute('name') != $(this).prev().attr('name')) continue;
-				formChildren[i].click();
-				break;
-			}
-		});
-		function changeUploadBtn(formName, fileBtnName, value) {
-			$('.myform form[name="' + formName + '"] input[name="' + fileBtnName + '"]').next().val(value.match(/[^\/\\]*$/)[0]);
-		}
-		*/
+	}
+	
+	// 更改
+	_this.changeFileText = function(formName, fileBtnName, value) {
+		$('.myform[name="' + formName + '"] input[name="' + fileBtnName + '"]').val(value.match(/[^\/\\]*$/)[0]);
 	}
 	
 	init();

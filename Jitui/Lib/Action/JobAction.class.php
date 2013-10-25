@@ -6,6 +6,7 @@ class JobAction extends Action {
 		$typeList = D('Common', 'job_type')->getIdNameList('ASC');
 		$provinceList = D('Common', 'province')->getIdNameList('ASC');
 		$cityList = D('Common', 'city')->getAll('ASC');
+
 		$this->assign('pageTitle', '发布内推');
 		$this->assign('typeList', $typeList);
 		$this->assign('provinceList', $provinceList);
