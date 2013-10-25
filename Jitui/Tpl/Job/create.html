@@ -13,12 +13,6 @@
 			<div class="clear"></div>
 		</div>
 		<div class="item">
-			<div class="tt">公司名称</div>
-			<div class="ct"><input name="company_name" type="text" class="form-control"></div>
-			<div class="tip"></div>
-			<div class="clear"></div>
-		</div>
-		<div class="item">
 			<div class="tt tt1">职位类别</div>
 			<div class="ct">
 				<select name="job_type_id" class="form-control">
@@ -68,6 +62,7 @@
 			<div class="ct"><input type="submit" value="发布" class="form-control btn btn-primary"></div>
 			<div class="clear"></div>
 		</div>
+		<input name="type_id" value="<{$_GET.type_id}>" class="hidden">
 		<span class="submitTip hidden">发布</span>
 		<span class="submittingTip hidden">正在发布</span>
 		<span class="successTip hidden">发布成功</span>

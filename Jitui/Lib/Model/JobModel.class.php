@@ -24,8 +24,6 @@ class JobModel extends Model {
 	public $dataRule = array(
 		array('name', 'empty'),
 		array('name', 'length', array(1, 50)),
-		array('company_name', 'empty'),
-		array('company_name', 'length', array(1, 50)),
 		array('job_type_id', 'empty'),
 		array('job_type_id', 'int'),
 		array('province_id', 'empty'),
@@ -36,6 +34,8 @@ class JobModel extends Model {
 		array('nature_id', 'int'),
 		array('des', 'empty'),
 		array('des', 'length', array(20, 5000)),
+		array('type_id', 'empty'),
+		array('type_id', 'int'),
 
 	);
 	
