@@ -50,11 +50,12 @@ class CommonModel extends Model {
 		
 		// 筛选条件
 		foreach($filter as $key => $value) {
+			if (empty($value)) continue;
 			if ($key == 'page') continue;
 			// 特殊条件
-			if (!empty($const['specialFilterField'][$key])) {
+			if (!empty($const['special'][$key])) {
 				// 时间区间
-				if ($const['specialFilterField'][$key][0] == 'timeBetween') {
+				if ($const['special'][$key][0] == 'timeBetween') {
 					$st = timeToInt($filter[$key]['s']);
 					$ed = timeToInt($filter[$key]['e']) + 86399;
 
@@ -68,7 +69,7 @@ class CommonModel extends Model {
 						$sql[$key] = array('ELT', $ed);
 				}
 				// 普通区间
-				if ($const['specialFilterField'][$key][0] == 'between') {
+				if ($const['special'][$key][0] == 'between') {
 					$st = $filter[$key]['s'];
 					$ed = $filter[$key]['e'];
 
@@ -82,8 +83,17 @@ class CommonModel extends Model {
 						$sql[$key] = array('ELT', $ed);
 				}
 				// 名称选择
-				if ($const['specialFilterField'][$key][0] == 'namePicker') {
+				if ($const['special'][$key][0] == 'namePicker') {
 					$sql[$key] = $value;
+				}
+				// 合并查询
+				if ($const['special'][$key][0] == 'concat') {
+					$s = 'concat(';
+					foreach($const['special'][$key][1] as $value2) {
+						$s .= '`' . $value2 . '`, \'|\', ';
+					}
+					$s .= '\'\')';
+					$sql['_string'] = $s . ' LIKE \'%'. mysql_real_escape_string($value) . '%\'';
 				}
 			}
 			// 选择框
@@ -105,8 +115,8 @@ class CommonModel extends Model {
 		//dump($sql);
 		
 		$ret = $mysql->where($sql)->field('COUNT(1) AS `count`')->find();
-		if (!empty($filter['page'])) $mysql = $mysql->page((int)$filter['page'], 20);
-		else $mysql = $mysql->page(1, 20);
+		if (!empty($filter['page'])) $mysql = $mysql->page((int)$filter['page'], 10);
+		else $mysql = $mysql->page(1, 10);
 		if (empty($const['order']))
 			$ret['data'] = $mysql->where($sql)->order('`' . $this->action . '_id` DESC')->select();
 		else

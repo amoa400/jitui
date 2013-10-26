@@ -6,6 +6,7 @@
 .index_left .head .select {}
 .index_left .head .select span {display:inline-block;margin-left:5px;padding:3px 8px 3px 8px;cursor:pointer;}
 .index_left .head .select .active {background:#428bca;color:#ffffff;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
+
 .index_left .content {margin-top:12px;}
 .index_left .content .item {padding-top:15px;padding-bottom:15px;border-top:1px solid #cfcfcf;}
 .index_left .content .item:first-child {margin-top:0px;}
@@ -18,6 +19,9 @@
 .index_left .content .item .text .info span {display:inline-block;margin-left:5px;}
 .index_left .content .item .text .info span:first-child {margin-left:0px;}
 .index_left .content .item .text .des {margin-top:8px;color:#999999;}
+
+.index_left .pagination {text-align:center;margin:0 auto;border-top:1px solid #cfcfcf;padding-top:25px;display:block;}
+.index_left .pagination li {display:inline-block;float:none;cursor:pointer;margin-left:5px;}
 
 .index_right {float:left;background:#ffffff;margin-left:30px;width:250px;padding:20px;}
 

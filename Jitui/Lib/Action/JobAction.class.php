@@ -4,20 +4,35 @@ class JobAction extends Action {
 	// 显示列表
 	public function index() {
 		// 获取数据
-		$filter['page'] = $_GET['page'];
-		$filter['type_id'] = $_GET['type_id'];
+		$filter = array(
+			'page' => $_GET['page'],
+			'type_id' => $_GET['type_id'],
+			'province_id' => $_GET['province_id'],
+			'city_id' => $_GET['city_id'],
+			'job_type_id' => $_GET['job_type_id'],
+			'nature_id' => $_GET['nature_id'],
+			'keyword' => $_GET['keyword']
+		);
+		$const['special'] = array(
+			'keyword' => array('concat', array('name', 'company_name', 'province_name', 'city_name')),
+		);
 		$ret = D('Common', 'job')->rList($filter, $const);
 		$jobList = $ret['data'];
 		foreach($jobList as $key => $job) {
 			$jobList[$key] = $this->format($job);
+			$jobList[$key]['des'] = str_replace('<br />', ' ', $jobList[$key]['des']);
 			$jobList[$key]['des'] = mb_substr($jobList[$key]['des'], 0, 150, 'utf-8') . '...';
 		}
-		
+
 		// 分页信息
 		$pager['count'] = $ret['count'];
-		$pager['cntPage'] = $const['page'];
+		$pager['cntPage'] = $_GET['page'];
 		if (empty($pager['cntPage'])) $pager['cntPage'] = 1;
-		$pager['totPage'] =  ceil($pager['count'] / 20);
+		$pager['totPage'] =  ceil($pager['count'] / 10);
+		
+		// 检索标签
+		$filterField['job_type_id'] = array('1' => '技术研发', '2' => '技术测试', '3' => 'IT产品', '4' => 'IT运营', '5' => '美工设计');
+		$filterField['nature_id'] = array('1' => '全职', '2' => '兼职', '3' => '实习');
 		
 		if ($_GET['type_id'] == 1) $this->assign('pageTitle', '内推');
 		if ($_GET['type_id'] == 2) $this->assign('pageTitle', '平台推');
@@ -95,7 +110,7 @@ class JobAction extends Action {
 			case 3:
 				$job['nature_name'] = '实习';
 		}
-		$job['des'] = nl2br($job['des']);
+		$job['des'] = nl2br(htmlspecialchars($job['des']));
 		$job['sub_time'] = intToTime($job['sub_time_int'], 'm-d');
 		return $job;
 	}
