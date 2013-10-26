@@ -1,0 +1,83 @@
+<include file="Index:header"/>
+
+<link href="/css/job.css" rel="stylesheet" type="text/css">
+
+<div class="index_left corner5 shadow3w">
+	<div class="head">
+		<form method="get" action="/job/index">
+			<div class="item input-group">
+				<input name="keyword" type="text" class="form-control" placeholder="搜索您想要找的职位、公司、城市等信息..." value="<{$_GET.keyword}>">
+				<span class="input-group-btn">
+					<button class="btn btn-primary" type="submit">搜 索</button>
+				</span>
+			</div>
+			<input name="type_id" value="<{$_GET.type_id}>" class="hidden">
+			<input name="city_id" value="<{$_GET.city_id}>" class="hidden">
+			<input name="job_type_id" value="<{$_GET.job_type_id}>" class="hidden">
+			<input name="nature_id" value="<{$_GET.nature_id}>" class="hidden">
+		</form>
+		<?php foreach($filterField as $filter) { ?>
+			<div class="item select">
+				<span>全部</span>
+				<span>上海</span>
+				<span>北京</span>
+				<span>广州</span>
+				<span>深圳</span>
+			</div>
+		<?php } ?>
+		<div class="item select">
+			<span class="active">全部</span>
+			<span>上海</span>
+			<span>北京</span>
+			<span>广州</span>
+			<span>深圳</span>
+		</div>
+		<div class="item select">
+			<span class="active">全部</span>
+			<span>技术研发</span>
+			<span>技术测试</span>
+			<span>IT产品</span>
+			<span>IT运营</span>
+			<span>美工设计</span>
+		</div>
+		<div class="item select">
+			<span class="active">全部</span>
+			<span>全职</span>
+			<span>兼职</span>
+			<span>实习</span>
+		</div>
+	</div>
+	<div class="content">
+	
+		<?php foreach($jobList as $job) { ?>
+		<div class="item">
+			<div class="photo">
+				<img src="/upload/user/<{$job.user_id}>/photo.jpg">
+			</div>
+			<div class="text">
+				<div class="title"><a href="/job/show/id/<{$job.job_id}>" target="_blank"><{$job.name}></a></div>
+				<div class="info">
+					<span><i class="fa fa-user"></i> <{$job.user_name}></span>
+					<span><i class="fa fa-building"></i> <{$job.company_name}></span>
+					<span><i class="fa fa-map-marker"></i> <{$job.province_name}>-<{$job.city_name}></span>
+					<span><i class="fa fa-briefcase"></i> <{$job.nature_name}></span>
+				</div>
+				<div class="des"><{$job.des}></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<?php } ?>
+		
+	</div>
+</div>
+
+<div class="index_right corner5 shadow3w">
+	<div class="phone">
+		手机找内推，关注即推微信<br><br>
+		<img src="/image/weixin.png" style="width:210px;">
+	</div>
+</div>
+
+<div class="clear"></div>
+
+<include file="Index:footer"/>

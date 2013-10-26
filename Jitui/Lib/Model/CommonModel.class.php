@@ -107,8 +107,13 @@ class CommonModel extends Model {
 		$ret = $mysql->where($sql)->field('COUNT(1) AS `count`')->find();
 		if (!empty($filter['page'])) $mysql = $mysql->page((int)$filter['page'], 20);
 		else $mysql = $mysql->page(1, 20);
-		$ret['data'] = $this->where($sql)->order('`' . $const['order'][0] . '` ' . $const['order'][1])->select();
+		if (empty($const['order']))
+			$ret['data'] = $mysql->where($sql)->order('`' . $this->action . '_id` DESC')->select();
+		else
+			$ret['data'] = $mysql->where($sql)->order('`' . $const['order']['field'] . '` ' . $const['order']['type'])->select();
+		
 		//dump($this->getLastSql());
+		//dump($ret);
 		return $ret;
 	}
 	

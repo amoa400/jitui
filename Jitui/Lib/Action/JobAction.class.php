@@ -1,6 +1,32 @@
 <?php
 
 class JobAction extends Action {
+	// 显示列表
+	public function index() {
+		// 获取数据
+		$filter['page'] = $_GET['page'];
+		$filter['type_id'] = $_GET['type_id'];
+		$ret = D('Common', 'job')->rList($filter, $const);
+		$jobList = $ret['data'];
+		foreach($jobList as $key => $job) {
+			$jobList[$key] = $this->format($job);
+			$jobList[$key]['des'] = mb_substr($jobList[$key]['des'], 0, 150, 'utf-8') . '...';
+		}
+		
+		// 分页信息
+		$pager['count'] = $ret['count'];
+		$pager['cntPage'] = $const['page'];
+		if (empty($pager['cntPage'])) $pager['cntPage'] = 1;
+		$pager['totPage'] =  ceil($pager['count'] / 20);
+		
+		if ($_GET['type_id'] == 1) $this->assign('pageTitle', '内推');
+		if ($_GET['type_id'] == 2) $this->assign('pageTitle', '平台推');
+		$this->assign('pager', $pager);
+		$this->assign('jobList', $jobList);
+		$this->assign('filterField', $filterField);
+		$this->display();
+	}
+	
 	// 创建
     public function create() {
 		$typeList = D('Common', 'job_type')->getIdNameList('ASC');

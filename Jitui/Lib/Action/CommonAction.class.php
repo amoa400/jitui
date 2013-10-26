@@ -24,7 +24,6 @@ class CommonAction extends Action {
 		else
 			return $ret;
 	}
-
 	
 	// 获取编号名称对应表
 	public function getIdNameList($const) {

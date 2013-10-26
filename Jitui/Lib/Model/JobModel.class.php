@@ -45,6 +45,7 @@ class JobModel extends Model {
 	
 	//数据填充规则
 	public $fillRule = array(
+		array('user_name', array('user', 'user_id', 'name'), 'getField'),
 		array('job_type_name', array('job_type', 'job_type_id', 'name'), 'getField'),
 		array('province_name', array('province', 'province_id', 'name'), 'getField'),
 		array('city_name', array('city', 'city_id', 'name'), 'getField'),
